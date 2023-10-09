@@ -66,6 +66,7 @@ app.get('/', (req, res) => { //setting up first API endpoint
     res.send('Hello World!');
 });
 
+//find user by name
 app.get('/users', (req, res) => {
     const name = req.query.name;
     if (name != undefined){
@@ -78,6 +79,7 @@ app.get('/users', (req, res) => {
     }
 });
 
+//find user by name and job
 app.get('/users', (req, res) => {
     const name = req.query.name;
     const job = req.query.job;
@@ -91,6 +93,7 @@ app.get('/users', (req, res) => {
     }
 });
 
+//find user by ID
 app.get('/users/:id', (req, res) => {
     const id = req.params['id']; //or req.params.id
     let result = findUserById(id);
@@ -101,10 +104,24 @@ app.get('/users/:id', (req, res) => {
     }
 });
 
+//print all users
 app.get('/users', (req, res) => {
     res.send(users);
 });
 
+//delete user
+app.delete('/users/:id', (req, res) => {
+    const id = req.params.id;
+    let deleted = findUserById(id);
+
+    if(deleted === undefined) {
+        res.status(404).send('Resource not found.');
+    }
+
+    users['users_list'] = users['users_list'].filter(user => user['id'] !== id);
+});
+
+//add new user
 app.post('/users', (req, res) => {
     const userToAdd = req.body;
     userToAdd.id = randId();

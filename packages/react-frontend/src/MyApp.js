@@ -36,10 +36,21 @@ function MyApp() {
   }
   
   function removeOneCharacter (index) {
-	  const updated = characters.filter((character, i) => {
-        return i !== index;
+    const id = characters[index].id;
+
+    fetch(`http://localhost:8000/users/${id}`, {
+        method: 'DELETE'
+    })
+    .then(response => {
+      if (response.status === 204) {
+        const updated = characters.filter((character, i) => {
+            return i !== index;
+        });
+        setCharacters(updated);
+      } else if (response.status === 404) {
+          console.log('Resource not found.');
+      }
     });
-    setCharacters(updated);
   }
 
   function fetchUsers() {
