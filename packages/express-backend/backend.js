@@ -49,6 +49,10 @@ const addUser = (user) => {
     return user;
 }
 
+const randId = () => {
+    return Math.floor(Math.random() * 900000) + 100000;
+}
+
 app.use(cors()); // allows backend to respond to calls coming from a different origin
 
 app.use(express.json());
@@ -85,6 +89,7 @@ app.get('/users', (req, res) => {
 
 app.post('/users', (req, res) => {
     const userToAdd = req.body;
+    userToAdd.id = randId();
     addUser(userToAdd);
     res.status(201).send();
 });
