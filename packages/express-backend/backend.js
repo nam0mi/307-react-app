@@ -90,8 +90,8 @@ app.get('/users', (req, res) => {
 app.post('/users', (req, res) => {
     const userToAdd = req.body;
     userToAdd.id = randId();
-    addUser(userToAdd);
-    res.status(201).send();
+    const newUser = addUser(userToAdd);
+    res.status(201).json({ user: newUser });;
 });
 
 app.listen(port, () => {
