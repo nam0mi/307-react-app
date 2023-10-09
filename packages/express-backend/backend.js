@@ -1,5 +1,6 @@
 // backend.js
 import express from "express";
+import cors from "cors";
 
 const app = express();
 const port = 8000;
@@ -47,6 +48,8 @@ const addUser = (user) => {
     users['users_list'].push(user);
     return user;
 }
+
+app.use(cors()); // allows backend to respond to calls coming from a different origin
 
 app.use(express.json());
 
