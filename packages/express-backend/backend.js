@@ -55,7 +55,7 @@ const addUser = (user) => {
 }
 
 const randId = () => {
-    return Math.floor(Math.random() * 900000) + 100000;
+    return (Math.floor(Math.random() * 900000) + 100000).toString();
 }
 
 app.use(cors()); // allows backend to respond to calls coming from a different origin
@@ -119,6 +119,7 @@ app.delete('/users/:id', (req, res) => {
     }
 
     users['users_list'] = users['users_list'].filter(user => user['id'] !== id);
+    res.status(204).send();
 });
 
 //add new user

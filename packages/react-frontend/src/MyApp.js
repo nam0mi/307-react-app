@@ -27,9 +27,12 @@ function MyApp() {
 
   function updateList(person) { 
     postUser(person)
-      .then(response => response.json())
-      .then((json) =>
-        setCharacters(characters => [...characters, json.user]))
+      .then((json) => {
+        if(json != undefined)
+        {
+          setCharacters(characters => [...characters, json.user]);
+        }
+      })
       .catch((error) => {
         console.log(error);
       })
@@ -65,6 +68,15 @@ function MyApp() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(person),
+    }).then((res) => {
+      if(res.status == 201)
+      {
+        return res.json();
+      }
+      else
+      {
+        return undefined;
+      }
     });
 
     return promise;
