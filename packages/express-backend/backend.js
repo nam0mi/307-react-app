@@ -91,7 +91,7 @@ app.post('/users', (req, res) => {
     const userToAdd = req.body;
     userToAdd.id = randId();
     const newUser = addUser(userToAdd);
-    res.status(201).json({ user: newUser });;
+    res.status(201).send({ user: newUser });;
 });
 
 app.listen(port, () => {
